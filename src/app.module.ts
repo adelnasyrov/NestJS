@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsModule } from './products/products.module';
 import { ConfigModule } from "@nestjs/config";
 import * as process from "node:process";
+import { Product } from "./products/products.entity";
 
 @Module({
   controllers: [],
@@ -18,7 +19,7 @@ import * as process from "node:process";
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [],
+      entities: [Product],
       autoLoadEntities: true,
     }),
     ProductsModule,
