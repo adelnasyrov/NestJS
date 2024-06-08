@@ -21,6 +21,7 @@ import { Product } from "./products/products.entity";
       database: process.env.POSTGRES_DB,
       entities: [Product],
       autoLoadEntities: true,
+      synchronize: true,
     }),
     ProductsModule,
   ],

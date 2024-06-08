@@ -17,6 +17,6 @@ export class Product {
   @Column({ type: "varchar" })
   unit: string;
 
-  @Column({ type: "int" })
+  @Column({ type: "int", nullable: true })
   user: number;
 }
