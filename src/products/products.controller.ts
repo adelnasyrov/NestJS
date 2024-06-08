@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Headers, Delete, Param, Patch } from "@nestjs/common";
+import { Body, Controller, Get, Post, Headers, Delete, Param, Patch, BadRequestException } from "@nestjs/common";
 import { CreateProductDto } from "./dto/create-product.dto";
 import { ProductsService } from "./products.service";
 import { UpdateProductQuantityDto } from "./dto/update-product-quantity.dto";
@@ -10,8 +10,11 @@ export class ProductsController {
   }
 
   @Post()
-  create(@Body() productDto: CreateProductDto, @Headers("user") user: number) {
-    return this.productsService.createProduct({ ...productDto, user });
+  async create(@Body() productDto: CreateProductDto, @Headers('user') userId: number) {
+    if (!userId) {
+      throw new BadRequestException('User ID is required in the header');
+    }
+    return this.productsService.createProduct(productDto, userId);
   }
 
 
