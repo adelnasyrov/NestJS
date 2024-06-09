@@ -37,20 +37,16 @@ export class ProductsController {
 
   @Get(":id")
   getOne(@Param("id") id: number) {
-    try{
+    try {
       return this.productsService.getProductById(id);
-    } catch (error){
+    } catch (error) {
       throw new NotFoundException(`Product with ID ${id} not found`);
     }
   }
 
   @Delete(":id")
   delete(@Param("id") id: number) {
-    try{
-      return this.productsService.deleteProductById(id);
-    } catch (error){
-      throw new NotFoundException(`Product with ID ${id} not found`);
-    }
+    return this.productsService.deleteProductById(id);
   }
 
   @UsePipes(ValidationPipe)

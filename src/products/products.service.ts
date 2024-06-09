@@ -32,7 +32,11 @@ export class ProductsService {
   }
 
   async deleteProductById(id: number): Promise<void> {
-    await this.productRepository.delete(id);
+    try{
+      await this.productRepository.delete(id);
+    } catch (error){
+      throw new NotFoundException(`Product with ID ${id} not found`);
+    }
   }
 
   async decreaseProductQuantity(id: number, quantity: number): Promise<Product> {
