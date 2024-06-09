@@ -37,11 +37,7 @@ export class ProductsController {
 
   @Get(":id")
   getOne(@Param("id") id: number) {
-    try {
-      return this.productsService.getProductById(id);
-    } catch (error) {
-      throw new NotFoundException(`Product with ID ${id} not found`);
-    }
+    return this.productsService.getProductById(id);
   }
 
   @Delete(":id")
