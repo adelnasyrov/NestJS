@@ -22,11 +22,12 @@ export class ProductsController {
 
   @UsePipes(ValidationPipe)
   @Post()
-  async create(@Body() productDto: CreateProductDto, @Headers("user") userId: number) {
+  async create(@Body() productDto: CreateProductDto, @Headers("user") userId: string) {
     if (!userId) {
       throw new BadRequestException("User ID is required in the header");
     }
-    return this.productsService.createProduct(productDto, userId);
+    const userIdInt = parseInt(userId, 10);
+    return this.productsService.createProduct(productDto, userIdInt);
   }
 
 
