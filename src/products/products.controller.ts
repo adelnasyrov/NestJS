@@ -8,7 +8,7 @@ import {
   Param,
   Patch,
   BadRequestException,
-  ValidationPipe, UsePipes
+  ValidationPipe, UsePipes, HttpException, HttpStatus, NotFoundException
 } from "@nestjs/common";
 import { CreateProductDto } from "./dto/create-product.dto";
 import { ProductsService } from "./products.service";
@@ -37,12 +37,20 @@ export class ProductsController {
 
   @Get(":id")
   getOne(@Param("id") id: number) {
-    return this.productsService.getProductById(id);
+    try{
+      return this.productsService.getProductById(id);
+    } catch (error){
+      throw new NotFoundException(`Product with ID ${id} not found`);
+    }
   }
 
   @Delete(":id")
   delete(@Param("id") id: number) {
-    return this.productsService.deleteProductById(id);
+    try{
+      return this.productsService.deleteProductById(id);
+    } catch (error){
+      throw new NotFoundException(`Product with ID ${id} not found`);
+    }
   }
 
   @UsePipes(ValidationPipe)
